@@ -33,8 +33,17 @@ def load_checkpoint(model_path: str, device):
 
 
 def default_paths():
-    ckpt_dir = os.path.join(os.path.dirname(__file__), 'checkpoints')
-    return os.path.join(ckpt_dir, 'minimal_vqvae.pt'), os.path.join(ckpt_dir, 'codebook.npz')
+    # Try checkpoints in current working directory first, then alongside this script
+    cwd_dir = os.path.join(os.getcwd(), 'checkpoints')
+    file_dir = os.path.join(os.path.dirname(__file__), 'checkpoints')
+    candidates = [cwd_dir, file_dir]
+    for d in candidates:
+        m = os.path.join(d, 'minimal_vqvae.pt')
+        c = os.path.join(d, 'codebook.npz')
+        if os.path.isfile(m) and os.path.isfile(c):
+            return m, c
+    # Fallback to CWD
+    return os.path.join(cwd_dir, 'minimal_vqvae.pt'), os.path.join(cwd_dir, 'codebook.npz')
 
 
 def main():

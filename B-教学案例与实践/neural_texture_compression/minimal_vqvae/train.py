@@ -120,7 +120,7 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     dataset = TextureTilesDataset(args.data, tile_size=args.tile_size)
-    loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True, num_workers=0, drop_last=True)
+    loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True, num_workers=0, drop_last=False)
 
     enc, vq, dec = build_model(args, device)
     params = list(enc.parameters()) + list(vq.parameters()) + list(dec.parameters())
