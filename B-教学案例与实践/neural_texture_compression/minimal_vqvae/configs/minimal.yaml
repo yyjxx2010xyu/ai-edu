@@ -1,0 +1,17 @@
+# Minimal config for VQ-VAE texture compression prototype
+model:
+  embed_dim: 64
+  hidden: 128
+  downsample: 8
+vq:
+  codebook_size: 2048
+  beta: 0.25
+train:
+  tile_size: 64
+  batch_size: 8
+  epochs: 1
+  lr: 0.0002
+  lpips: false
+paths:
+  data: ./data/textures
+  out: ./checkpoints
